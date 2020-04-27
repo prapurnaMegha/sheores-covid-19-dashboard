@@ -10,6 +10,6 @@ export class DataCollectionService {
 
   constructor(private httpClient: HttpClient) { }
   getDataset(): Observable<any> {
-    return this.httpClient.get('http://api.covid19india.org/data.json');
+    return this.httpClient.get('https://api.covid19india.org/data.json');
   }
 }
