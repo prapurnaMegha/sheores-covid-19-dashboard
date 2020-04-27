@@ -16,6 +16,9 @@ export class WorldGlanceComponent implements OnInit {
   private totalConfirmed: Array<number> = [];
   private totalDeceased: Array<number> = [];
   private totalRecovered: Array<number> = [];
+  private dailyConfirmed: Array<number> = [];
+  private dailyDeceased: Array<number> = [];
+  private dailyRecovered: Array<number> = [];
   public lineChartLabels: Label[] =[];
   public lineChartData: ChartDataSets[] =[];
   ngOnInit() {
@@ -67,12 +70,15 @@ export class WorldGlanceComponent implements OnInit {
     this.totalConfirmed = [];
     this.totalDeceased = [];
     this.totalRecovered = [];
+    this.dailyConfirmed = [];
+    this.dailyDeceased = [];
+    this.dailyRecovered = [];
       this.datasets.cases_time_series.forEach((item) => { 
         const formattedStartDate  = formatDate(startDate,'d LLLL', 'en-US');
         if(item.date.trim() === formatDate(startDate,'d LLLL', 'en-US')){
-          this.totalConfirmed.push(item.totalconfirmed);
-          this.totalDeceased.push(item.totaldeceased);
-          this.totalRecovered.push(item.totalrecovered);
+          this.dailyConfirmed.push(item.dailyconfirmed);
+          this.dailyDeceased.push(item.dailydeceased);
+          this.dailyRecovered.push(item.dailyrecovered);
           startDate.setDate(startDate.getDate() + 1);
         }
       });
@@ -96,9 +102,9 @@ export class WorldGlanceComponent implements OnInit {
     this.lineChartLabels = this.getTimeline(startDate, today);
     this.bindDataByDate(startDate);
     this.lineChartData = [
-      { data: this.totalConfirmed, label: 'Total Confirmed' },
-      { data: this.totalRecovered, label: 'Total Recovered' },
-      { data: this.totalDeceased, label: 'Total Deceased' },
+      { data: this.dailyConfirmed, label: 'Daily Confirmed' },
+      { data: this.dailyRecovered, label: 'Daily Recovered' },
+      { data: this.dailyDeceased, label: 'Daily Deceased' },
     ];
   }
 }
